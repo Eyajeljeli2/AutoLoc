@@ -24,7 +24,8 @@ public class ClientServiceImpl implements IClientService {
     @Override
     @Transactional
     public Client update(Long id, Client entity) {
-        Client existing = getById(id);
+        Client existing = clientRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Client introuvable : id = " + id));
         BeanCopyUtils.copyNonNull(entity, existing);
         return clientRepository.save(existing);
     }

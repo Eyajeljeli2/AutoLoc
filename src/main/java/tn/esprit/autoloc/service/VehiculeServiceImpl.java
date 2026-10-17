@@ -24,7 +24,8 @@ public class VehiculeServiceImpl implements IVehiculeService {
     @Override
     @Transactional
     public Vehicule update(Long id, Vehicule entity) {
-        Vehicule existing = getById(id);
+        Vehicule existing = vehiculeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Vehicule introuvable : id = " + id));
         BeanCopyUtils.copyNonNull(entity, existing);
         return vehiculeRepository.save(existing);
     }

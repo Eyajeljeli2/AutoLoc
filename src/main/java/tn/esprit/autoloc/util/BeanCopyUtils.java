@@ -17,15 +17,15 @@ public final class BeanCopyUtils {
         String idName = idFieldName(target.getClass());
         for (PropertyDescriptor pd : src.getPropertyDescriptors()) {
             String name = pd.getName();
-            if ("class".equals(name) || name.equals(idName)) {
-                continue;
-            }
-            if (!src.isReadableProperty(name) || !tgt.isWritableProperty(name)) {
-                continue;
-            }
-            Object value = src.getPropertyValue(name);
-            if (value != null) {
-                tgt.setPropertyValue(name, value);
+            boolean copiable = !"class".equals(name)
+                    && !name.equals(idName)
+                    && src.isReadableProperty(name)
+                    && tgt.isWritableProperty(name);
+            if (copiable) {
+                Object value = src.getPropertyValue(name);
+                if (value != null) {
+                    tgt.setPropertyValue(name, value);
+                }
             }
         }
     }
