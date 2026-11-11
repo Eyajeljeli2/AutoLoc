@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.autoloc.domain.Contrat;
+import tn.esprit.autoloc.domain.Paiement;
 import tn.esprit.autoloc.exception.ResourceNotFoundException;
 import tn.esprit.autoloc.repository.IContratRepository;
 
@@ -22,6 +23,11 @@ public class ContratServiceImpl implements IContratService {
         }
         if (contrat.getMontantTotal() != null && contrat.getMontantTotal().compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Le montant total ne peut pas être négatif");
+        }
+        if (contrat.getPaiements() != null) {
+            for (Paiement p : contrat.getPaiements()) {
+                p.setContrat(contrat);
+            }
         }
         return contratRepository.save(contrat);
     }
