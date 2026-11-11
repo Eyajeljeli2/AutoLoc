@@ -25,7 +25,7 @@ public class VehiculeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Vehicule add(@RequestBody Vehicule entity) {
-        return vehiculeService.add(entity);
+        return vehiculeService.create(entity);
     }
 
     @PutMapping("/{id}")
@@ -35,17 +35,17 @@ public class VehiculeController {
 
     @GetMapping("/{id}")
     public Vehicule getById(@PathVariable Long id) {
-        return vehiculeService.getById(id);
+        return vehiculeService.findById(id);
     }
 
     @GetMapping
     public List<Vehicule> getAll() {
-        return vehiculeService.getAll();
+        return vehiculeService.findAll();
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        vehiculeService.delete(id);
+        vehiculeService.deleteById(id);
     }
 }

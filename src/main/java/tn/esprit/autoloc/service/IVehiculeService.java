@@ -5,13 +5,13 @@ import tn.esprit.autoloc.domain.Vehicule;
 
 public interface IVehiculeService {
 
-    Vehicule add(Vehicule entity);
+    Vehicule create(Vehicule vehicule);
 
-    Vehicule update(Long id, Vehicule entity);
+    Vehicule findById(Long id);
 
-    Vehicule getById(Long id);
+    List<Vehicule> findAll();
 
-    List<Vehicule> getAll();
+    Vehicule update(Long id, Vehicule vehicule);
 
-    void delete(Long id);
+    void deleteById(Long id);
 }

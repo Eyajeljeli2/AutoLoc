@@ -25,7 +25,7 @@ public class ClientController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Client add(@RequestBody Client entity) {
-        return clientService.add(entity);
+        return clientService.create(entity);
     }
 
     @PutMapping("/{id}")
@@ -35,17 +35,17 @@ public class ClientController {
 
     @GetMapping("/{id}")
     public Client getById(@PathVariable Long id) {
-        return clientService.getById(id);
+        return clientService.findById(id);
     }
 
     @GetMapping
     public List<Client> getAll() {
-        return clientService.getAll();
+        return clientService.findAll();
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        clientService.delete(id);
+        clientService.deleteById(id);
     }
 }

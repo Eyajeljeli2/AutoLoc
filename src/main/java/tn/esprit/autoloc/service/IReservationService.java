@@ -5,5 +5,13 @@ import tn.esprit.autoloc.domain.Reservation;
 
 public interface IReservationService {
 
-    List<Reservation> getAll();
+    Reservation create(Reservation reservation);
+
+    Reservation findById(Long id);
+
+    List<Reservation> findAll();
+
+    Reservation update(Long id, Reservation reservation);
+
+    void deleteById(Long id);
 }

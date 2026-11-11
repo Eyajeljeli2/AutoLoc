@@ -5,5 +5,7 @@ import tn.esprit.autoloc.domain.Paiement;
 
 public interface IPaiementService {
 
-    List<Paiement> getAll();
+    Paiement findById(Long id);
+
+    List<Paiement> findAll();
 }
