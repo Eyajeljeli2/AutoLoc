@@ -129,3 +129,4 @@ Toutes les requêtes HTTP sont interceptées en point d'entrée unique par la **
 - **Pourquoi `@JsonManagedReference` pour `Contrat.paiements` vs `@JsonIgnore` pour `Agence.vehicules` :**
   - `Contrat.paiements` est une composition où le contrat doit inclure l'affichage de ses paiements et permettre leur création imbriquée lors d'un unique POST. `@JsonManagedReference` et `@JsonBackReference` permettent cette inclusion tout en évitant la boucle infinie.
   - `Agence.vehicules` est une relation simple où les véhicules ont leur propre cycle de vie indépendant. Inclure tous les véhicules d'une agence alourdirait inutilement la réponse JSON et introduirait des cycles ; `@JsonIgnore` supprime cette collection superflue, et chaque véhicule référence son agence simplement par son ID.
+

@@ -5,12 +5,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.autoloc.domain.Maintenance;
 import tn.esprit.autoloc.service.IMaintenanceService;
+import tn.esprit.autoloc.web.dto.MaintenanceDTO;
 
 @Tag(name = "Maintenances", description = "Gestion des maintenances de véhicules")
 @RestController
@@ -23,7 +24,7 @@ public class MaintenanceController {
     @Operation(summary = "Lister toutes les maintenances")
     @ApiResponse(responseCode = "200", description = "Liste des maintenances récupérée avec succès")
     @GetMapping
-    public List<Maintenance> findAll() {
+    public List<MaintenanceDTO> findAll() {
         return maintenanceService.findAll();
     }
 
@@ -33,7 +34,7 @@ public class MaintenanceController {
             @ApiResponse(responseCode = "404", description = "Maintenance introuvable")
     })
     @GetMapping("/{id}")
-    public Maintenance findById(@Parameter(description = "Identifiant de la maintenance") @PathVariable Long id) {
+    public MaintenanceDTO findById(@Parameter(description = "Identifiant de la maintenance") @PathVariable Long id) {
         return maintenanceService.findById(id);
     }
 
@@ -44,7 +45,7 @@ public class MaintenanceController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Maintenance create(@RequestBody Maintenance maintenance) {
+    public MaintenanceDTO create(@Valid @RequestBody MaintenanceDTO maintenance) {
         return maintenanceService.create(maintenance);
     }
 
@@ -55,7 +56,7 @@ public class MaintenanceController {
             @ApiResponse(responseCode = "404", description = "Maintenance introuvable")
     })
     @PutMapping("/{id}")
-    public Maintenance update(@Parameter(description = "Identifiant de la maintenance") @PathVariable Long id, @RequestBody Maintenance maintenance) {
+    public MaintenanceDTO update(@Parameter(description = "Identifiant de la maintenance") @PathVariable Long id, @Valid @RequestBody MaintenanceDTO maintenance) {
         return maintenanceService.update(id, maintenance);
     }
 

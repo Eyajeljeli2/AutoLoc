@@ -5,12 +5,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.autoloc.domain.Client;
 import tn.esprit.autoloc.service.IClientService;
+import tn.esprit.autoloc.web.dto.ClientDTO;
 
 @Tag(name = "Clients", description = "Gestion des clients")
 @RestController
@@ -23,7 +24,7 @@ public class ClientController {
     @Operation(summary = "Lister tous les clients")
     @ApiResponse(responseCode = "200", description = "Liste des clients récupérée avec succès")
     @GetMapping
-    public List<Client> findAll() {
+    public List<ClientDTO> findAll() {
         return clientService.findAll();
     }
 
@@ -33,7 +34,7 @@ public class ClientController {
             @ApiResponse(responseCode = "404", description = "Client introuvable")
     })
     @GetMapping("/{id}")
-    public Client findById(@Parameter(description = "Identifiant du client") @PathVariable Long id) {
+    public ClientDTO findById(@Parameter(description = "Identifiant du client") @PathVariable Long id) {
         return clientService.findById(id);
     }
 
@@ -44,7 +45,7 @@ public class ClientController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Client create(@RequestBody Client entity) {
+    public ClientDTO create(@Valid @RequestBody ClientDTO entity) {
         return clientService.create(entity);
     }
 
@@ -55,7 +56,7 @@ public class ClientController {
             @ApiResponse(responseCode = "404", description = "Client introuvable")
     })
     @PutMapping("/{id}")
-    public Client update(@Parameter(description = "Identifiant du client") @PathVariable Long id, @RequestBody Client entity) {
+    public ClientDTO update(@Parameter(description = "Identifiant du client") @PathVariable Long id, @Valid @RequestBody ClientDTO entity) {
         return clientService.update(id, entity);
     }
 

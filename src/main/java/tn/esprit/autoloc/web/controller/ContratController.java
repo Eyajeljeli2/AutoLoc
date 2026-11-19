@@ -5,12 +5,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.autoloc.domain.Contrat;
 import tn.esprit.autoloc.service.IContratService;
+import tn.esprit.autoloc.web.dto.ContratDTO;
 
 @Tag(name = "Contrats", description = "Gestion des contrats de location")
 @RestController
@@ -23,7 +24,7 @@ public class ContratController {
     @Operation(summary = "Lister tous les contrats")
     @ApiResponse(responseCode = "200", description = "Liste des contrats récupérée avec succès")
     @GetMapping
-    public List<Contrat> findAll() {
+    public List<ContratDTO> findAll() {
         return contratService.findAll();
     }
 
@@ -33,7 +34,7 @@ public class ContratController {
             @ApiResponse(responseCode = "404", description = "Contrat introuvable")
     })
     @GetMapping("/{id}")
-    public Contrat findById(@Parameter(description = "Identifiant du contrat") @PathVariable Long id) {
+    public ContratDTO findById(@Parameter(description = "Identifiant du contrat") @PathVariable Long id) {
         return contratService.findById(id);
     }
 
@@ -44,7 +45,7 @@ public class ContratController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Contrat create(@RequestBody Contrat contrat) {
+    public ContratDTO create(@Valid @RequestBody ContratDTO contrat) {
         return contratService.create(contrat);
     }
 
@@ -55,7 +56,8 @@ public class ContratController {
             @ApiResponse(responseCode = "404", description = "Contrat introuvable")
     })
     @PutMapping("/{id}")
-    public Contrat update(@Parameter(description = "Identifiant du contrat") @PathVariable Long id, @RequestBody Contrat contrat) {
+    public ContratDTO update(@Parameter(description = "Identifiant du contrat") @PathVariable Long id,
+            @Valid @RequestBody ContratDTO contrat) {
         return contratService.update(id, contrat);
     }
 

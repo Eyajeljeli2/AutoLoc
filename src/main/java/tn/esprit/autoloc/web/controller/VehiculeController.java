@@ -5,12 +5,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.autoloc.domain.Vehicule;
 import tn.esprit.autoloc.service.IVehiculeService;
+import tn.esprit.autoloc.web.dto.VehiculeDTO;
 
 @Tag(name = "Vehicules", description = "Gestion des véhicules")
 @RestController
@@ -23,7 +24,7 @@ public class VehiculeController {
     @Operation(summary = "Lister tous les véhicules")
     @ApiResponse(responseCode = "200", description = "Liste des véhicules récupérée avec succès")
     @GetMapping
-    public List<Vehicule> findAll() {
+    public List<VehiculeDTO> findAll() {
         return vehiculeService.findAll();
     }
 
@@ -33,7 +34,7 @@ public class VehiculeController {
             @ApiResponse(responseCode = "404", description = "Véhicule introuvable")
     })
     @GetMapping("/{id}")
-    public Vehicule findById(@Parameter(description = "Identifiant du véhicule") @PathVariable Long id) {
+    public VehiculeDTO findById(@Parameter(description = "Identifiant du véhicule") @PathVariable Long id) {
         return vehiculeService.findById(id);
     }
 
@@ -44,7 +45,7 @@ public class VehiculeController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Vehicule create(@RequestBody Vehicule entity) {
+    public VehiculeDTO create(@Valid @RequestBody VehiculeDTO entity) {
         return vehiculeService.create(entity);
     }
 
@@ -55,7 +56,7 @@ public class VehiculeController {
             @ApiResponse(responseCode = "404", description = "Véhicule introuvable")
     })
     @PutMapping("/{id}")
-    public Vehicule update(@Parameter(description = "Identifiant du véhicule") @PathVariable Long id, @RequestBody Vehicule entity) {
+    public VehiculeDTO update(@Parameter(description = "Identifiant du véhicule") @PathVariable Long id, @Valid @RequestBody VehiculeDTO entity) {
         return vehiculeService.update(id, entity);
     }
 
