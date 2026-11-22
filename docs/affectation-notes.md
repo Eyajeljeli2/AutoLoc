@@ -113,7 +113,7 @@ Résultat d'exécution :
    $env:JAVA_HOME = "C:\Users\DELL\.jdks\openjdk-21"; .\mvnw.cmd spring-boot:run
    ```
 2. **Swagger UI :**
-   - Ouvrir `http://localhost:8080/api/swagger-ui/index.html` (ou `http://localhost:8080/api/swagger-ui.html`).
+   - Ouvrir `http://localhost:8082/api/swagger-ui/index.html` (ou `http://localhost:8082/api/swagger-ui.html`).
    - Dérouler le tag **Affectations** pour voir les 5 endpoints documentés avec schémas DTO.
 3. **Collection Postman :**
    - Importer `AutoLoc.postman_collection.json`.
