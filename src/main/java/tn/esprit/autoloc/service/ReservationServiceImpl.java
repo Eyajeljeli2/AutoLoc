@@ -11,6 +11,8 @@ import tn.esprit.autoloc.repository.IClientRepository;
 import tn.esprit.autoloc.repository.IReservationRepository;
 import tn.esprit.autoloc.repository.IVehiculeRepository;
 import tn.esprit.autoloc.web.dto.ReservationDTO;
+import tn.esprit.autoloc.web.dto.ReservationResponseDTO;
+import tn.esprit.autoloc.web.dto.ReservationWithContratRequestDTO;
 import tn.esprit.autoloc.web.mapper.ReservationMapper;
 
 @Service
@@ -21,6 +23,7 @@ public class ReservationServiceImpl implements IReservationService {
     private final IClientRepository clientRepository;
     private final IVehiculeRepository vehiculeRepository;
     private final ReservationMapper reservationMapper;
+    private final IAffectationService affectationService;
 
     @Override
     public ReservationDTO create(ReservationDTO dto) {
@@ -82,6 +85,16 @@ public class ReservationServiceImpl implements IReservationService {
             throw new ResourceNotFoundException("Reservation", id);
         }
         reservationRepository.deleteById(id);
+    }
+
+    @Override
+    public ReservationResponseDTO affecterReservationAClient(Long idReservation, String nom, String prenom) {
+        return affectationService.affecterReservationAClient(idReservation, nom, prenom);
+    }
+
+    @Override
+    public ReservationResponseDTO creerReservationEtContratAssocie(ReservationWithContratRequestDTO requestDTO) {
+        return affectationService.creerReservationEtContratAssocie(requestDTO);
     }
 
     private void validerReservation(ReservationDTO dto) {

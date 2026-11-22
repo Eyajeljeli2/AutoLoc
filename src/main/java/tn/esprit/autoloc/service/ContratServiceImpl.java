@@ -1,6 +1,7 @@
 package tn.esprit.autoloc.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class ContratServiceImpl implements IContratService {
     private final IContratRepository contratRepository;
     private final IReservationRepository reservationRepository;
     private final ContratMapper contratMapper;
+    private final IAffectationService affectationService;
 
     @Override
     public ContratDTO create(ContratDTO dto) {
@@ -76,6 +78,11 @@ public class ContratServiceImpl implements IContratService {
             throw new ResourceNotFoundException("Contrat", id);
         }
         contratRepository.deleteById(id);
+    }
+
+    @Override
+    public ContratDTO affecterContratAReservation(LocalDate dateSignature, LocalDate dateDebut, LocalDate dateFin) {
+        return affectationService.affecterContratAReservation(dateSignature, dateDebut, dateFin);
     }
 
     private void validerContrat(ContratDTO dto) {

@@ -70,4 +70,30 @@ public class VehiculeController {
     public void deleteById(@Parameter(description = "Identifiant du véhicule") @PathVariable Long id) {
         vehiculeService.deleteById(id);
     }
+
+    @Operation(summary = "Affecter un véhicule à un équipement (Atelier 7)",
+               description = "Associe un équipement à un véhicule (relation ManyToMany)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Équipement affecté au véhicule avec succès"),
+            @ApiResponse(responseCode = "404", description = "Véhicule ou équipement introuvable")
+    })
+    @PutMapping("/{idVehicule}/affecter-equipement/{idEquipement}")
+    public VehiculeDTO affecterVehiculeAEquipement(
+            @PathVariable Long idVehicule,
+            @PathVariable Long idEquipement) {
+        return vehiculeService.affecterVehiculeAEquipement(idVehicule, idEquipement);
+    }
+
+    @Operation(summary = "Affecter une maintenance à un véhicule (Atelier 7)",
+               description = "Associe une maintenance à un véhicule via son immatriculation et passe son statut à MAINTENANCE")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Maintenance affectée avec succès"),
+            @ApiResponse(responseCode = "404", description = "Véhicule introuvable")
+    })
+    @PostMapping("/affecter-maintenance")
+    public VehiculeDTO affecterMaintenanceAvehicule(
+            @RequestParam String description,
+            @RequestParam String immatriculation) {
+        return vehiculeService.affecterMaintenanceAvehicule(description, immatriculation);
+    }
 }

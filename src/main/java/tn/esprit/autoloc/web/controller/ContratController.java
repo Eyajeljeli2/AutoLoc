@@ -6,8 +6,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.autoloc.service.IContratService;
@@ -70,5 +72,20 @@ public class ContratController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Parameter(description = "Identifiant du contrat") @PathVariable Long id) {
         contratService.deleteById(id);
+    }
+
+    @Operation(summary = "Affecter un contrat à une réservation (Atelier 7)",
+               description = "Crée ou associe un contrat à la réservation correspondant aux dates début et fin spécifiées")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Contrat affecté avec succès"),
+            @ApiResponse(responseCode = "400", description = "Dates invalides"),
+            @ApiResponse(responseCode = "404", description = "Aucune réservation trouvée pour cette période")
+    })
+    @PostMapping("/affecter-reservation")
+    public ContratDTO affecterContratAReservation(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateSignature,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateDebut,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFin) {
+        return contratService.affecterContratAReservation(dateSignature, dateDebut, dateFin);
     }
 }

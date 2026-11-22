@@ -22,6 +22,7 @@ public class VehiculeServiceImpl implements IVehiculeService {
     private final IAgenceRepository agenceRepository;
     private final IEquipementRepository equipementRepository;
     private final VehiculeMapper vehiculeMapper;
+    private final IAffectationService affectationService;
 
     @Override
     public VehiculeDTO create(VehiculeDTO dto) {
@@ -86,6 +87,16 @@ public class VehiculeServiceImpl implements IVehiculeService {
             throw new ResourceNotFoundException("Vehicule", id);
         }
         vehiculeRepository.deleteById(id);
+    }
+
+    @Override
+    public VehiculeDTO affecterVehiculeAEquipement(Long idVehicule, Long idEquipement) {
+        return affectationService.affecterVehiculeAEquipement(idVehicule, idEquipement);
+    }
+
+    @Override
+    public VehiculeDTO affecterMaintenanceAvehicule(String description, String immatriculation) {
+        return affectationService.affecterMaintenanceAvehicule(description, immatriculation);
     }
 
     private void validerVehicule(VehiculeDTO dto) {

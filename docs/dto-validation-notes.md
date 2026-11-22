@@ -154,3 +154,4 @@ La classe `tn.esprit.autoloc.web.controller.GlobalExceptionHandler` intercepte l
     "horodatage": "2026-11-19T00:35:20"
   }
   ```
+
