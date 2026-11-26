@@ -2271,6 +2271,85 @@
                                                 ]
                                   }
                               ]
+                 },
+                 {
+                     "name":  "Atelier 8 - Schedulers",
+                     "item":  [
+                                  {
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "raw":  "{{baseUrl}}/api/schedulers/contrats-echeance-48h",
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "schedulers",
+                                                                               "contrats-echeance-48h"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  },
+                                      "name":  "1. Identifier Contrats Arrivant a Echeance (48h)",
+                                      "event":  [
+                                                    {
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\u0027Statut 200 OK\u0027, function () {",
+                                                                                    "    pm.response.to.have.status(200);",
+                                                                                    "});",
+                                                                                    "pm.test(\u0027Reponse est un tableau JSON\u0027, function () {",
+                                                                                    "    var json = pm.response.json();",
+                                                                                    "    pm.expect(Array.isArray(json)).to.be.true;",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   },
+                                                        "listen":  "test"
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "url":  {
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "raw":  "{{baseUrl}}/api/schedulers/liberer-vehicules",
+                                                                  "path":  [
+                                                                               "api",
+                                                                               "schedulers",
+                                                                               "liberer-vehicules"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  },
+                                      "name":  "2. Liberer Vehicules et Fermer Locations (1h00)",
+                                      "event":  [
+                                                    {
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\u0027Statut 200 OK\u0027, function () {",
+                                                                                    "    pm.response.to.have.status(200);",
+                                                                                    "});",
+                                                                                    "pm.test(\u0027Reponse est un tableau JSON\u0027, function () {",
+                                                                                    "    var json = pm.response.json();",
+                                                                                    "    pm.expect(Array.isArray(json)).to.be.true;",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   },
+                                                        "listen":  "test"
+                                                    }
+                                                ]
+                                  }
+                              ]
                  }
              ],
     "variable":  [
@@ -2281,4 +2360,3 @@
                      }
                  ]
 }
-
